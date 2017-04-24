@@ -36,7 +36,7 @@ Name | Values
 `@type` | Must be Profile
 `name` | Language map of names for this profile
 `definition` | Language map of descriptions for this profile. If there are additional rules for the profile as a whole that cannot be expressed using this specification, include them here.
-`seeAlso` | A URL containing information about the profile. Recommended instead of especially long definitions.
+`isDefinedBy` | A URL with the full definition of the profile. Recommended instead of especially long definitions.
 `versions` | An array of all profile version objects for this profile, see below
 `author` | An Organization or Person, see below
 `concepts` | The concepts that make up this Profile, see the Concepts section
@@ -76,12 +76,13 @@ Name | Values
 `altLabel` | A language map of alternative names in each language
 `definition` | A language map of the precise definition, including how to use the concept properly in statements
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
-`broader` | The IRI of a concept of the same @type from this profile that has a broader meaning.
-`narrower` | The IRI of a concept of the same @type from this profile that has a narrower meaning.
-`broadMatch` | The IRI of a concept of the same @type from a different profile that has a broader meaning.
-`narrowMatch` | The IRI of a concept of the same @type from a different profile that has a narrower meaning.
-`exactMatch` | The IRI of a concept of the same @type from a different profile that has exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs.
-`relatedMatch` | The IRI of a concept of the same @type from a different profile that has a related meaning that is not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery.
+`broader` | An array of IRIs of concepts of the same @type from this profile that have a broader meaning.
+`narrower` | An array of IRIs of concepts of the same @type from this profile that have a narrower meaning.
+`related` | An array of IRIs of concepts of the same @type from the same profile that have related meanings that are perfect or near-perfect replacements. This MUST only be used on deprecated concepts.
+`broadMatch` | An array of IRIs of concepts of the same @type from different profiles that have broader meanings.
+`narrowMatch` | An array of IRI of concepts of the same @type from different profiles that have narrower meanings.
+`exactMatch` | An array of IRIs of concepts of the same @type from different profiles that have exactly the same meaning. This should be used rarely, mostly to describe connections to vocabularies that are no longer managed and do not use good URLs, or to offer a replacement for a deprecated concept in another profile.
+`relatedMatch` | An array of IRIs of concepts of the same @type from different profiles that have related meanings that are not clearly narrower or broader. Useful to establish conceptual links between profiles that can be used for discovery.
 
 ### Extensions
 
@@ -90,9 +91,11 @@ This is the trickiest bit, probably, along with the idea of constraining documen
 Name | Values
 ---- | ------
 `@id` | The IRI of the extension, used as the extension key in xAPI
+`@type` | `Extension`
 `name` | A language map of descriptive names for the extension
 `definition` | A language map of descriptions of the purpose and usage of the extension
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
+`related` | An array of IRIs of concepts of the same @type from the same profile that have related meanings that are perfect or near-perfect replacements. This MUST only be used on deprecated concepts.
 `placement` | An array of placement locations. Must contain at least one element, no elements may be repeated, and the only allowed elements are `context`, `result`, `activity` and IRIs (which must be Activity Type IRIs in this or other profiles).
 `context` | *Optional*. the IRI of a JSON-LD context for this extension
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this extension. The JSON Schema may constrain the extension to a single type.
@@ -110,6 +113,7 @@ Name | Values
 `name` | A language map of descriptive names for the document resource
 `definition` | A language map of descriptions of the purpose and usage of the document resource
 `deprecated` | Optional. A boolean. If true, this concept is deprecated.
+`related` | An array of IRIs of concepts of the same @type from the same profile that have related meanings that are perfect or near-perfect replacements. This MUST only be used on deprecated concepts.
 `context` | *Optional*. the IRI of a JSON-LD context for this document resource
 `schema` | *Optional*. the IRI for accessing a JSON Schema for this document resource.
 `inlineSchema` | A JSON Schema inline.
